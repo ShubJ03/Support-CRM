@@ -37,6 +37,13 @@ async function getDb() {
     );
   `);
 
+  try {
+    db.run("ALTER TABLE tickets ADD COLUMN priority TEXT NOT NULL DEFAULT 'Medium'");
+    save();
+  } catch(e) {
+    // column already exists, ignore
+  }
+
   save();
   return db;
 }
