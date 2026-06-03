@@ -12,14 +12,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // POST /api/tickets
 app.post("/api/tickets", async (req, res) => {
-  const { customer_name, customer_email, subject, description } = req.body;
+  const { customer_name, customer_email, subject, description, priority } = req.body;
   if (!customer_name || !customer_email || !subject || !description)
     return res.status(400).json({ error: "All fields are required." });
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(customer_email))
     return res.status(400).json({ error: "Invalid email address." });
   try {
-    const result = await db.createTicket({ customer_name, customer_email, subject, description });
+    const result = await db.createTicket({ customer_name, customer_email, subject, description, priority });
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
