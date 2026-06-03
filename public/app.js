@@ -138,7 +138,9 @@ async function submitTicket() {
   const email = document.getElementById('f-email').value.trim();
   const subject = document.getElementById('f-subject').value.trim();
   const description = document.getElementById('f-description').value.trim();
-  const priority = document.getElementById('f-priority').value;
+  const priorityEl = document.getElementById('f-priority');
+  const priority = priorityEl ? priorityEl.value : 'Medium';
+  console.log('Priority selected:', priority);
 
   // Client-side validation
   let valid = true;
